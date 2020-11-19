@@ -1,11 +1,15 @@
 let s;
 let food;
-
-
 let resolution = 10;
+
+let actualWidth;
+let actualHight;
 function setup() {
   createCanvas(800, 800);
-  frameRate(60);
+  w = floor(width / resolution);
+
+  h = floor(height / resolution);
+  frameRate(30);
 
   s = new Snake();
   food = createVector(random(), random)
@@ -13,7 +17,13 @@ function setup() {
 
 
 
+function generateFood() {
+  let posx = floor(random(actualWidth));
+  let poy = floor(random(actualHight))
+  food = createVector(posx, posy);
 
+
+}
 class Snake {
 
   constructor() {
