@@ -1,4 +1,4 @@
-
+let s;
 function setup() {
   createCanvas(800, 800);
   s = new Snake(0, 0);
@@ -9,6 +9,34 @@ function draw() {
   s.show();
 }
 
+
+//changes direction of snake
+function keyPressed() {
+  //up
+  if (key == 'w') {
+    s.xdir = 0;
+    s.ydir = -1;
+
+  }
+  //right
+  else if (key == 'd') {
+    s.xdir = 1;
+    s.ydir = 0;
+
+  }
+  //left
+  else if (key == 'a') {
+    s.xdir = -1;
+    s.ydir = 0;
+
+  }
+  //down
+  else if (key == 's') {
+    s.xdir = 0;
+    s.ydir = 1;
+  }
+
+}
 class Snake {
 
   constructor() {
