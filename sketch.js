@@ -4,26 +4,28 @@ let resolution = 10;
 
 let actualWidth;
 let actualHight;
+
 function setup() {
   createCanvas(800, 800);
-  w = floor(width / resolution);
+  actualWidth = floor(width / resolution);
 
-  h = floor(height / resolution);
+  actualHight = floor(height / resolution);
   frameRate(30);
 
   s = new Snake();
-  food = createVector(random(), random)
+  generateFood();
+
 }
 
 
 
 function generateFood() {
-  let posx = floor(random(actualWidth));
-  let poy = floor(random(actualHight))
-  food = createVector(posx, posy);
-
-
+  let posX = floor(random(actualWidth));
+  let posY = floor(random(actualHight));
+  food = createVector(posX, posY);
 }
+
+
 class Snake {
 
   constructor() {
@@ -37,23 +39,28 @@ class Snake {
     this.ydir = 0;
 
   }
+  eat(foodPos) {
+    let x = this.body[0].x;
+    let y = this.body[0].y;
+
+    if (foodPos.x === x && foodPos.y === y) {
+      console.log("FOOD EATEN");
+      generateFood();
+    }
+  }
 
   update() {
     this.body[0].x += this.xdir;
     this.body[0].y += this.ydir;
-
+    this.eat(food)
 
 
   }
-
   show() {
+    fill(0, 0, 255);
     rect(this.body[0].x, this.body[0].y, 1, 1)
 
   }
-
-
-
-
 }
 
 //changes direction of snake
@@ -87,7 +94,12 @@ function keyPressed() {
 
 function draw() {
   scale(resolution);
-  background(0, 255, 0);
+  background(0, 200, 0);
   s.update();
   s.show();
+  noStroke();
+  fill(255, 0, 0);
+  rect(food.x, food.y, 1, 1)
+  console.log("(" + food.x + "," + food.y + ")");
+  console.log()
 }
