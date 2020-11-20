@@ -1,16 +1,17 @@
 let s;
 let food;
 let resolution = 10;
-
+let score = 0;
+let total = 1;
 let actualWidth;
 let actualHight;
 
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(500, 500);
   actualWidth = floor(width / resolution);
 
   actualHight = floor(height / resolution);
-  frameRate(30);
+  frameRate(20);
 
   s = new Snake();
   generateFood();
@@ -18,12 +19,14 @@ function setup() {
 }
 
 
-
 function generateFood() {
   let posX = floor(random(actualWidth));
   let posY = floor(random(actualHight));
   food = createVector(posX, posY);
 }
+
+
+
 
 
 class Snake {
@@ -38,6 +41,18 @@ class Snake {
     this.xdir = 1;
     this.ydir = 0;
 
+    //keep track of length of snake
+    this.len = 1
+
+  }
+
+
+
+  grow() {
+
+    this.len++;
+    this.boody.push(createVector(0, 0));
+
   }
   eat(foodPos) {
     let x = this.body[0].x;
@@ -46,20 +61,24 @@ class Snake {
     if (foodPos.x === x && foodPos.y === y) {
       console.log("FOOD EATEN");
       generateFood();
+      this.grow();
+
+
     }
   }
 
   update() {
+    this.eat(food)
     this.body[0].x += this.xdir;
     this.body[0].y += this.ydir;
-    this.eat(food)
-
 
   }
   show() {
-    fill(0, 0, 255);
-    rect(this.body[0].x, this.body[0].y, 1, 1)
 
+    for (var i = 0; i < this.body.length; i++) {
+      fill(0, 0, 255);
+      rect(this.body[i].x, this.body[0].y, 1, 1)
+    }
   }
 }
 
