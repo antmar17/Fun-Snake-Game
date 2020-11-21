@@ -106,7 +106,7 @@ class Snake {
       return;
     }
     if (this.body.length > 1) {
-      for (var i = 1; i < this.body.length - 1; i++) {
+      for (var i = 0; i < this.body.length - 1; i++) {
         if (x == this.body[i].x && y == this.body[i].y) {
           this.gameOver();
           return;
