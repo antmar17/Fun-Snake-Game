@@ -51,7 +51,6 @@ class Snake {
   grow() {
 
     this.len++;
-    this.boody.push(createVector(0, 0));
 
   }
   eat(foodPos) {
@@ -77,7 +76,7 @@ class Snake {
 
     for (var i = 0; i < this.body.length; i++) {
       fill(0, 0, 255);
-      rect(this.body[i].x, this.body[0].y, 1, 1)
+      rect(this.body[i].x, this.body[i].y, 1, 1)
     }
   }
 }
@@ -119,6 +118,4 @@ function draw() {
   noStroke();
   fill(255, 0, 0);
   rect(food.x, food.y, 1, 1)
-  console.log("(" + food.x + "," + food.y + ")");
-  console.log()
 }
