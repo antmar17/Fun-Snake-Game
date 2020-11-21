@@ -6,6 +6,9 @@ let total = 1;
 let actualWidth;
 let actualHight;
 let color = 0;
+
+var socket = io()
+
 function setup() {
   createCanvas(500, 500);
   actualWidth = floor(width / resolution);
@@ -15,7 +18,6 @@ function setup() {
 
   s = new Snake();
   generateFood();
-
 }
 
 
