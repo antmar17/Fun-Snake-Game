@@ -32,11 +32,9 @@ function generateFood() {
 class Snake {
 
   constructor() {
-
     //Keep track of all vectors in snake (have them reference vector in front of them)
     this.body = [];
-    this.body[0] = createVector(0, 0);
-
+    this.body[0] = createVector(floor(actualWidth / 2), floor(actualHight / 2));
     //keep track of the direction the snake is moving in
     this.xdir = 1;
     this.ydir = 0;
@@ -51,14 +49,15 @@ class Snake {
   grow() {
 
     this.len++;
-
+    let head = this.body[this.body.length - 1];
+    this.body.push(createVector(head.x, head.y));
   }
   eat(foodPos) {
-    let x = this.body[0].x;
-    let y = this.body[0].y;
+    let head = this.body[this.body.length - 1]
+    let x = head.x;
+    let y = head.y;
 
     if (foodPos.x === x && foodPos.y === y) {
-      console.log("FOOD EATEN");
       generateFood();
       this.grow();
 
@@ -67,13 +66,18 @@ class Snake {
   }
 
   update() {
-    this.eat(food)
-    this.body[0].x += this.xdir;
-    this.body[0].y += this.ydir;
+    this.eat(food);
+
+    let head = this.body[this.body.length - 1].copy();
+    this.body.shift();
+
+    head.x += this.xdir;
+    head.y += this.ydir;
+    this.body.push(head);
 
   }
   show() {
-
+    //show all the snakes body parts
     for (var i = 0; i < this.body.length; i++) {
       fill(0, 0, 255);
       rect(this.body[i].x, this.body[i].y, 1, 1)
@@ -106,7 +110,10 @@ function keyPressed() {
     s.xdir = 0;
     s.ydir = 1;
   }
-
+  //for debugging
+  else if (key == " ") {
+    s.grow();
+  }
 }
 
 
