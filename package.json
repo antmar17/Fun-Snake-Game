@@ -1,0 +1,29 @@
+{
+  "name": "fun-snake-game",
+  "version": "1.0.0",
+  "description": "Sanke game with socket server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antmar17/Fun-Snake-Game.git"
+  },
+  "keywords": [
+    "p5.js",
+    "socket.io",
+    "Express"
+  ],
+  "author": "Anthony Feliciano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antmar17/Fun-Snake-Game/issues"
+  },
+  "homepage": "https://github.com/antmar17/Fun-Snake-Game#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.0.3"
+  }
+}
