@@ -14,9 +14,11 @@ function setup() {
   actualWidth = floor(width / resolution);
 
   actualHight = floor(height / resolution);
-  frameRate(10);
+  frameRate(15);
 
   s = new Snake();
+
+  document.getElementById('score').innerHTML = s.len - 1;
   generateFood();
 }
 
@@ -70,6 +72,7 @@ class Snake {
 
 
   eat(foodPos) {
+    this.len++;
     let head = this.body[this.body.length - 1]
     let x = head.x;
     let y = head.y;
@@ -79,11 +82,10 @@ class Snake {
       this.grow();
 
 
+
     }
   }
   gameOver() {
-    this.len = 1;
-    //play_sound();
     this.body = [];
     this.body[0] = createVector(floor(actualWidth / 2), floor(actualHight / 2));
     //keep track of the direction the snake is moving in
@@ -186,6 +188,7 @@ function keyPressed() {
 function draw() {
   scale(resolution);
   background(0, 200, 0);
+
   s.update();
   s.show();
   noStroke();
