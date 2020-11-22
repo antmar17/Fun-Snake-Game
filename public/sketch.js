@@ -7,15 +7,17 @@ let actualWidth;
 let actualHight;
 let color = 0;
 
-var socket = io()
+var socket;
 
 function setup() {
   createCanvas(500, 500);
+
   actualWidth = floor(width / resolution);
 
   actualHight = floor(height / resolution);
-  frameRate(15);
 
+  frameRate(15);
+  socket = io.connect('http://localhost:3000');
   s = new Snake();
 
   document.getElementById('score').innerHTML = "Score:" + String(s.len - 1);
