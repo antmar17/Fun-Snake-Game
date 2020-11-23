@@ -27,11 +27,15 @@ function setup() {
 
 }
 function gotMessage(data) {
-  console.log('recieved message! ' + data['dir']);
-  s.xdir = data['xdir'];
-  s.yidr = data['ydir'];
+  let x = data['xdir'];
+  let y = data['ydir'];
+  let d = data['dir'];
 
-  s.dir = data['dir'];
+  console.log("recieving: (" + x + " " + y + " )");
+  s.xdir = x;
+  s.ydir = y;
+
+  s.dir = d;
 
 
 }
@@ -144,9 +148,13 @@ class Snake {
     let head = this.body[this.body.length - 1].copy();
     this.body.shift();
 
+
     head.x += this.xdir;
     head.y += this.ydir;
     this.body.push(head);
+    //console.log("DIRECTION:  (" + this.xdir + "," + this.ydir + ")");
+
+
 
 
 
@@ -178,19 +186,19 @@ function keyPressed() {
     s.dir = "N";
   }
   //right
-  else if (key == 'd') {
+  else if (key == 'd' && s.dir != "W") {
     s.xdir = 1;
     s.ydir = 0;
     s.dir = "E";
   }
   //left
-  else if (key == 'a') {
+  else if (key == 'a' && s.dir != "E") {
     s.xdir = -1;
     s.ydir = 0;
     s.dir = "W";
   }
   //down
-  else if (key == 's') {
+  else if (key == 's' && s.dir != "N") {
     s.xdir = 0;
     s.ydir = 1;
     s.dir = "S";
@@ -199,11 +207,8 @@ function keyPressed() {
   else if (key == " ") {
     s.grow();
   }
-
-
-
   var data = {
-    ydir: s.yidr,
+    ydir: s.ydir,
     xdir: s.xdir,
     dir: s.dir
     //'score': this.len - 1
@@ -211,8 +216,11 @@ function keyPressed() {
   }
   //var jsonData = JSON.stringify(data);
 
-  console.log("sending: (" + data['dir'] + " )");
+  console.log("sending: (" + data['xdir'] + data['ydir'] + " )");
   socket.emit('Update', data);
+
+
+
 
 
 }
