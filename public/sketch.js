@@ -27,8 +27,11 @@ function setup() {
 
 }
 function gotMessage(data) {
-  console.log('recieved message!');
+  console.log('recieved message! ' + data['dir']);
+  s.xdir = data['xdir'];
+  s.yidr = data['ydir'];
 
+  s.dir = data['dir'];
 
 
 }
@@ -59,7 +62,6 @@ class Snake {
     //keep track of the direction the snake is moving in
     this.xdir = 1;
     this.ydir = 0;
-    this.dir = "E";
     //keep track of length of snake
     this.len = 1;
 
@@ -147,19 +149,6 @@ class Snake {
     this.body.push(head);
 
 
-    var data = {
-      //'body': this.body,
-      ydir: this.yidr,
-      xdir: this.xdir,
-      dir: this.dir
-      //'score': this.len - 1
-
-    }
-    //var jsonData = JSON.stringify(data);
-
-    //console.log("sending: (" + data['dir'] + " )");
-    socket.emit('Update', data);
-
 
 
   }
@@ -183,25 +172,25 @@ class Snake {
 //changes direction of snake (can't go backwards)
 function keyPressed() {
   //up
-  if (key == 'w' && s.dir != "S") {
+  if (key == 'w') {
     s.xdir = 0;
     s.ydir = -1;
     s.dir = "N";
   }
   //right
-  else if (key == 'd' && s.dir != "W") {
+  else if (key == 'd') {
     s.xdir = 1;
     s.ydir = 0;
     s.dir = "E";
   }
   //left
-  else if (key == 'a' && s.dir != "E") {
+  else if (key == 'a') {
     s.xdir = -1;
     s.ydir = 0;
     s.dir = "W";
   }
   //down
-  else if (key == 's' && s.dir != "N") {
+  else if (key == 's') {
     s.xdir = 0;
     s.ydir = 1;
     s.dir = "S";
@@ -210,6 +199,22 @@ function keyPressed() {
   else if (key == " ") {
     s.grow();
   }
+
+
+
+  var data = {
+    ydir: s.yidr,
+    xdir: s.xdir,
+    dir: s.dir
+    //'score': this.len - 1
+
+  }
+  //var jsonData = JSON.stringify(data);
+
+  console.log("sending: (" + data['dir'] + " )");
+  socket.emit('Update', data);
+
+
 }
 
 
