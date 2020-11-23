@@ -17,11 +17,20 @@ function setup() {
   actualHight = floor(height / resolution);
 
   frameRate(15);
-  socket = io.connect('http://localhost:3000');
   s = new Snake();
 
   document.getElementById('score').innerHTML = "Score:" + String(s.len - 1);
   generateFood();
+  socket = io.connect('http://localhost:3000');
+  socket.on('Update', gotMessage);
+
+
+}
+function gotMessage(data) {
+  console.log('recieved message!');
+
+
+
 }
 
 
@@ -137,7 +146,24 @@ class Snake {
     head.y += this.ydir;
     this.body.push(head);
 
+
+    var data = {
+      //'body': this.body,
+      ydir: this.yidr,
+      xdir: this.xdir,
+      dir: this.dir
+      //'score': this.len - 1
+
+    }
+    //var jsonData = JSON.stringify(data);
+
+    //console.log("sending: (" + data['dir'] + " )");
+    socket.emit('Update', data);
+
+
+
   }
+
   show() {
     //show all the snakes body parts
     for (var i = 0; i < this.body.length; i++) {
