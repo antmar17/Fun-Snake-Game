@@ -23,7 +23,14 @@
   },
   "homepage": "https://github.com/antmar17/Fun-Snake-Game#readme",
   "dependencies": {
+    "-": "0.0.1",
+    "amqplib": "^0.6.0",
+    "child_process": "^1.0.2",
     "express": "^4.17.1",
+    "save": "^2.4.0",
     "socket.io": "^3.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.15.0"
   }
 }
